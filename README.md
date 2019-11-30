@@ -4,8 +4,10 @@ I have a server side and a client side. You have many options to choose from as 
 **Goals for the future of this project:**:question::exclamation::question:
 
          1. Make the code neater (right now it is pretty messy and not so efficient).
-         2. Make more options for the chat (create rooms, unmute users and more).
-         3. Make it a desktop application.
+         2. Change the way the server works, move it over to multi-threading insted of a list contaning the managers and a list contaning             the users.
+         3. Make more options for the chat (create rooms, unmute users and more).
+         4. Make it a desktop application.
+         5. Fix some bugs, such as the cursor bug.
 
 ## To Run: ##
 In this project I used python 2.7. If you want to run this project on your computer you will need to download two files.\
