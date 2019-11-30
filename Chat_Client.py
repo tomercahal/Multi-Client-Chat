@@ -14,7 +14,8 @@ FIRST_AND_HELP_MESSAGE = '\r\nHi, and welcome to Tomer\'s multi-client chat\r\n'
                          'To kick a user, use this syntax: kick:user\r\n' \
                          'To make a user a manager, use this syntax: manager:user\r\n' \
                          'To mute a user, use this syntax: mute:user\r\n' \
-                         'To quit the chat at any time, type quit.\r\nq' \
+                         'To quit the chat at any time, type quit.\r\n'
+
 
 def get_name():
     """This function is called when a new user has joined and needs to give his name. It
