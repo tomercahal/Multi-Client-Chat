@@ -23,7 +23,7 @@ class Server(object):  # This is the server class
     def __init__(self):
         """The constructor method of the server class"""
         self.IP = '127.0.0.1'  # maybe will have to change to 0.0.0.0
-        self.PORT = 23
+        self.PORT = 220
         self.open_client_sockets = []
         self.client_sockets_with_names = []
         self.manager_list = []
@@ -96,7 +96,7 @@ class Server(object):  # This is the server class
         for socket in self.client_sockets_with_names:
             if '@' in socket[1]:
                 stam = socket[1]
-                stam = stam[:len(stam)-1:]
+                stam = stam[:len(stam)-1:]  # Just getting read of unnecessary parts for the print
             if user == socket[1] or user == stam:
                 time_sent = get_time()
                 secret_message = time_sent + "!secret! " + sender_name + ": " + data
@@ -121,8 +121,6 @@ class Server(object):  # This is the server class
             else:
                 current_socket.send("Error, only chat managers can kick people")
         elif fun == '3':  # Making someone a manager
-            print '@' + name
-            print self.manager_list
             if '@' + name in self.manager_list:
                 parts = mess.split(":")
                 new_manager = parts[1]
@@ -144,7 +142,7 @@ class Server(object):  # This is the server class
         elif fun == '6':  # Shows a list of the current managers
             final_send = 'The managers are: '
             for manager in self.manager_list:
-                final_send = final_send + "\r\n" + manager
+                final_send = final_send + "\r\n" + manager  # Just making the output prettier
             if len(self.manager_list) == 0:
                 current_socket.send("The chat does not have any managers right now.")
             else:
@@ -152,11 +150,11 @@ class Server(object):  # This is the server class
 
     def start(self):
         """This function......."""
+        print('Server starting up on ip %s port %s' % (self.IP, self.PORT))
+        server_socket = socket.socket()
+        server_socket.bind((self.IP, self.PORT))
+        server_socket.listen(1)
         while True:
-            print('Server starting up on ip %s port %s' % (self.IP, self.PORT))
-            server_socket = socket.socket()
-            server_socket.bind((self.IP, self.PORT))
-            server_socket.listen(1)
             rlist, wlist, xlist = select.select([server_socket] + self.open_client_sockets, self.open_client_sockets, [])
             #  rlist = able to read from
             #  wlist = able to send to
@@ -178,17 +176,17 @@ class Server(object):  # This is the server class
                         self.open_client_sockets.remove(current_socket)  # Removing the client from the sockets to send to
                         self.client_sockets_with_names.remove((current_socket, username))
                         print "The client: " + username + ", has disconnected "
-                        self.send_left_message(username, 1)
+                        self.send_left_message(username, 1)  # Sending to the rest of the users that the user left.
                         continue
                     self.analyze_func(username, func, message, current_socket)
                     if func == '1':
-                        if '@' in username:
+                        if '@' in username:  # Checking if he is a manager
                             username = username[:len(username)-1:]
-                        if '@' + username in self.manager_list:
+                        if '@' + username in self.manager_list:  # Checking if he is in the managers list
                             username = '@' + username
-                        self.messages_to_send.append((current_socket, username + ": " + message, wlist))
+                        self.messages_to_send.append((current_socket, username + ": " + message, wlist))  # Adding to managers list
 
-            self.send_waiting_messages()
+            self.send_waiting_messages()  # Sending the messages that are still waiting to be sent
 
 
 if __name__ == '__main__':
