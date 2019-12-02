@@ -17,7 +17,7 @@ The second is: `Chat_client.py` which is thge client file and in order to run it
 
 I hope you enjoy this project, and if you have and suggestions please let me know!
 
-Link to a video of me showing the project will be avaiable in the upcoming days.:grin:
+Link to a video of me showing the project will be avaiable soon!:grin:
 
 
 
